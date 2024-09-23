@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -44,7 +41,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         
         // TODO: use this.Content to load your game content here
-        _playerSprite = GenerateRandomTexture(GraphicsDevice, 16, 16);
+        _playerSprite = Content.Load<Texture2D>("Player/player_idle");
     }
 
     protected override void Update(GameTime gameTime)
@@ -68,16 +65,5 @@ public class Game1 : Game
         _spriteBatch.End();
 
         base.Draw(gameTime);
-    }
-
-    private Texture2D GenerateRandomTexture(GraphicsDevice graphicsDevice, int width, int height)
-    {
-        Random random = new();
-        Color[] data = Enumerable.Range(0, width * height)
-            .Select(_ => new Color(random.Next(256), random.Next(256), random.Next(256)))
-            .ToArray();
-        Texture2D texture = new(graphicsDevice, width, height);
-        texture.SetData(data);
-        return texture;
     }
 }
