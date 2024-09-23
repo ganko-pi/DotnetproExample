@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,7 +13,7 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private OrthographicCamera _camera;
 
-    private Texture2D _playerSprite;
+    private Texture2D _playerTexture;
 
     public Game1()
     {
@@ -41,7 +41,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         
         // TODO: use this.Content to load your game content here
-        _playerSprite = Content.Load<Texture2D>("Player/player_idle");
+        _playerTexture = Content.Load<Texture2D>("Player/player_idle");
     }
 
     protected override void Update(GameTime gameTime)
@@ -61,7 +61,7 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         Matrix transformMatrix = _camera.GetViewMatrix();
         _spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
-        _spriteBatch.Draw(_playerSprite, new Vector2(50, 50), Color.White);
+        _spriteBatch.Draw(_playerTexture, new Vector2(50, 50), Color.White);
         _spriteBatch.End();
 
         base.Draw(gameTime);
