@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -22,6 +22,7 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private OrthographicCamera _camera;
 
+    private Texture2D _mapTexture;
     private Texture2D _playerTexture;
     private Player _player = new();
 
@@ -51,6 +52,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         
         // TODO: use this.Content to load your game content here
+        _mapTexture = Content.Load<Texture2D>("Maps/map");
         _playerTexture = Content.Load<Texture2D>("Player/player_idle");
     }
 
@@ -72,6 +74,7 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         Matrix transformMatrix = _camera.GetViewMatrix();
         _spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
+        _spriteBatch.Draw(_mapTexture, new Vector2(0, -40), Color.White);
         _spriteBatch.Draw(_playerTexture, _player.Position, Color.White);
         _spriteBatch.End();
 
