@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\pipeline-references\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -24,6 +25,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Maps/map.png
+
+#begin Maps/map.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/map.tmx
 
 #begin Player/player_idle.png
 /importer:TextureImporter

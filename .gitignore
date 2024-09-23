@@ -482,3 +482,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# MonoGame
+pipeline-references/
+
+# Tiled Map Editor
+*.tiled-session

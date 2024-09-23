@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using MonoGame.Extended;
+using MonoGame.Extended.Tiled;
+using MonoGame.Extended.Tiled.Renderers;
 using MonoGame.Extended.ViewportAdapters;
 
 namespace DotnetproExample;
@@ -22,7 +24,8 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private OrthographicCamera _camera;
 
-    private Texture2D _mapTexture;
+    private TiledMap _tiledMap;
+    private TiledMapRenderer _tiledMapRenderer;
     private Texture2D _playerTexture;
     private Player _player = new();
 
@@ -52,7 +55,8 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         
         // TODO: use this.Content to load your game content here
-        _mapTexture = Content.Load<Texture2D>("Maps/map");
+        _tiledMap = Content.Load<TiledMap>("Maps/map");
+        _tiledMapRenderer = new(GraphicsDevice, _tiledMap);
         _playerTexture = Content.Load<Texture2D>("Player/player_idle");
     }
 
@@ -62,6 +66,7 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
+        _tiledMapRenderer.Update(gameTime);
         _player.Update(gameTime);
 
         base.Update(gameTime);
@@ -73,8 +78,8 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
         Matrix transformMatrix = _camera.GetViewMatrix();
+        _tiledMapRenderer.Draw(transformMatrix);
         _spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
-        _spriteBatch.Draw(_mapTexture, new Vector2(0, -40), Color.White);
         _spriteBatch.Draw(_playerTexture, _player.Position, Color.White);
         _spriteBatch.End();
 
