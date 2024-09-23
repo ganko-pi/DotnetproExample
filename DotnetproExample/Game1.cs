@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 using Microsoft.Xna.Framework;
@@ -28,6 +28,11 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
+        _graphics.IsFullScreen = false;
+        _graphics.PreferredBackBufferWidth = 1600;
+        _graphics.PreferredBackBufferHeight = 900;
+        _graphics.ApplyChanges();
+
         ViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 320, 180);
         _camera = new OrthographicCamera(viewportAdapter);
 
