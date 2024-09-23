@@ -1,3 +1,2 @@
-﻿
-using var game = new DotnetproExample.Game1();
+﻿using var game = new DotnetproExample.Game1();
 game.Run();
