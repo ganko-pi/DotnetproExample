@@ -66,5 +66,7 @@ public class Player
             default:
                 break;
         }
+
+        _position.Round();
     }
 }
