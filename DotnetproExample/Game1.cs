@@ -23,6 +23,8 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private OrthographicCamera _camera;
+    // must be > 0 and <= 1, the smaller the smoother
+    private readonly float _cameraSmoothness = 0.05f;
 
     private TiledMap _tiledMap;
     private TiledMapRenderer _tiledMapRenderer;
@@ -84,7 +86,13 @@ public class Game1 : Game
         // TODO: Add your update logic here
         _tiledMapRenderer.Update(gameTime);
         _player.Update(gameTime);
-        _camera.LookAt(_player.Position);
+
+        SizeF cameraViewport = _camera.BoundingRectangle.Size;
+        Vector2 playerTopLeftCornerRelativeToCameraTopLeftCorner = new(
+            cameraViewport.Width / 2 + _player.CurrentAnimation.Size.X / 2,
+            cameraViewport.Height / 2 + _player.CurrentAnimation.Size.Y / 2);
+        Vector2 distanceBetweenCameraMiddleAndPlayerMiddle = _player.Position - (_camera.Position + playerTopLeftCornerRelativeToCameraTopLeftCorner);
+        _camera.Position += distanceBetweenCameraMiddleAndPlayerMiddle * _cameraSmoothness;
 
         base.Update(gameTime);
     }
