@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -46,6 +46,7 @@ public class Game1 : Game
 
         ViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 320, 180);
         _camera = new OrthographicCamera(viewportAdapter);
+        _camera.LookAt(_player.Position);
 
         base.Initialize();
     }
@@ -68,6 +69,7 @@ public class Game1 : Game
         // TODO: Add your update logic here
         _tiledMapRenderer.Update(gameTime);
         _player.Update(gameTime);
+        _camera.LookAt(_player.Position);
 
         base.Update(gameTime);
     }
