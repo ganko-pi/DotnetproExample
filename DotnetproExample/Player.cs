@@ -8,13 +8,36 @@ public class Player
     private Vector2 _position = new(50, 100);
     private int _speed = 85;
     private Direction _movementDirection = Direction.Down;
+    private Sprite[] _animations;
+
+    public Sprite CurrentAnimation { get; private set; }
+    public Sprite[] Animations
+    {
+        get => _animations;
+        set
+        {
+            _animations = value;
+
+            foreach (Sprite animation in _animations)
+            {
+                animation.Position = _position;
+            };
+            
+            CurrentAnimation = _animations[0];
+            SetAnimation(movementDirectionChanged: true);
+        }
+    }
 
     public Vector2 Position { get => _position; }
 
     public void Update(GameTime gameTime)
     {
+        Direction previousMovementDirection = _movementDirection;
         _movementDirection = GetNewMovementDirection();
+        bool movementDirectionChanged = previousMovementDirection != _movementDirection;
         MovePlayer(gameTime);
+        SetAnimation(movementDirectionChanged);
+        UpdateAnimation(gameTime);
     }
 
     private Direction GetNewMovementDirection()
@@ -42,6 +65,33 @@ public class Player
         }
 
         return Direction.None;
+    }
+
+    private void SetAnimation(bool movementDirectionChanged)
+    {
+        if (_movementDirection == Direction.None)
+        {
+            CurrentAnimation.FrameIndex = 1;
+            return;
+        }
+
+        CurrentAnimation = _animations[(int)_movementDirection];
+        CurrentAnimation.Position = new Vector2(_position.X - (CurrentAnimation.Size.X - CurrentAnimation.Origin.X), _position.Y - (CurrentAnimation.Size.Y - CurrentAnimation.Origin.Y));
+
+        if (movementDirectionChanged)
+        {
+            CurrentAnimation.FrameIndex = 0;
+        }
+    }
+
+    private void UpdateAnimation(GameTime gameTime)
+    {
+        if (_movementDirection == Direction.None)
+        {
+            return;
+        }
+
+        CurrentAnimation.Update(gameTime);
     }
 
     private void MovePlayer(GameTime gameTime)
