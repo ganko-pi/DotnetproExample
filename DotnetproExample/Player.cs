@@ -5,9 +5,9 @@ namespace DotnetproExample;
 
 public class Player
 {
-    private Vector2 _position = new(50, 50);
-    private int _speed = 200;
-    private Direction _movementDirection = Direction.Right;
+    private Vector2 _position = new(50, 100);
+    private int _speed = 85;
+    private Direction _movementDirection = Direction.Down;
 
     public Vector2 Position { get => _position; }
 
